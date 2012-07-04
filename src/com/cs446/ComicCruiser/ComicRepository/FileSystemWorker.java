@@ -13,10 +13,10 @@ public class FileSystemWorker {
 			}
 		};
 		
-		return listFiles(new File("/"), issueFilter, true);
+		return listIssueFiles(new File("/"), issueFilter, true);
 	}
 	
-	public static ArrayList<File> listFiles(File rootDir, FileFilter filter, boolean recursive) {
+	public static ArrayList<File> listIssueFiles(File rootDir, FileFilter filter, boolean recursive) {
 	    ArrayList<File> result = new ArrayList<File>();
 	    if( !rootDir.exists() || !rootDir.isDirectory() ) 
 	        return result;
@@ -34,7 +34,7 @@ public class FileSystemWorker {
 	        File[] dirs = rootDir.listFiles(new DirFilter());
 	        for( File f : dirs ) {
 	            if( f.canRead() ) {
-	                result.addAll(listFiles(f, filter, recursive));
+	                result.addAll(listIssueFiles(f, filter, recursive));
 	            }
 	        }
 	    }
