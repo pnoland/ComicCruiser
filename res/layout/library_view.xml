@@ -6,12 +6,10 @@
         <EditText
             android:id="@+id/librarySearchView"
             android:layout_width="wrap_content"
-            android:layout_height="0dip"
-            android:layout_weight="1"
+            android:layout_height="50dip"
             android:ems="10"
-            android:text="" >
-
-            <requestFocus />
+            android:hint="Filter"
+            android:inputType="text" >
         </EditText>
 
     <ListView

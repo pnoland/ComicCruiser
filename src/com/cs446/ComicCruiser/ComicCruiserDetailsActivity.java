@@ -7,9 +7,12 @@ import android.view.View;
 import android.widget.Button;
 
 public class ComicCruiserDetailsActivity extends Activity {
+	private String title;
     View.OnClickListener readClickHandler = new View.OnClickListener() {
         public void onClick(View v) {
         	Intent i = new Intent(ComicCruiserDetailsActivity.this, ComicCruiserReadComicActivity.class);
+        	String title = ComicCruiserDetailsActivity.this.getIntent().getStringExtra(ComicCruiserLibraryActivity.ISSUE_TITLE_KEY);
+        	i.putExtra(ComicCruiserLibraryActivity.ISSUE_TITLE_KEY, title);
         	startActivity(i);
         }
       };
@@ -21,6 +24,6 @@ public class ComicCruiserDetailsActivity extends Activity {
         Button b2 = (Button) findViewById(R.id.detailsFrameButton);
         b1.setOnClickListener(readClickHandler);
         b2.setOnClickListener(readClickHandler);
-        
+        String title = ComicCruiserDetailsActivity.this.getIntent().getStringExtra(ComicCruiserLibraryActivity.ISSUE_TITLE_KEY);
     }
 }

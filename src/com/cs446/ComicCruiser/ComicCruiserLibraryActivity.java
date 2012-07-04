@@ -1,13 +1,23 @@
 package com.cs446.ComicCruiser;
 
+import java.util.ArrayList;
+
+import com.cs446.ComicCruiser.ComicRepository.RepositoryFacade;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class ComicCruiserLibraryActivity extends Activity {
+		public static String ISSUE_TITLE_KEY = "com.cs446.ComicCruiser.issue_title_key";
+		
+		private ComicIssueListAdapter adapter;
 	    @Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
@@ -15,17 +25,29 @@ public class ComicCruiserLibraryActivity extends Activity {
 	        
 	        ListView listView = (ListView) findViewById(R.id.libraryItemsList);
 	        
-	        String[] values = new String[] { "Y the Last Man Issue 4", "Ex Machina Issue 17", 
-	        		"Sandman Volume 2: The Doll's House", "Y the Last Man Issue 3", "Sandman Volume 1: Preludes and Nocturnes", 
-	        		"Ex Machina Issue 16", "Ex Machina Issue 15", "V for Vendetta Complete" };
+	        ArrayList<String> values = RepositoryFacade.getAllIssueTitles();
 	        
-	        RecentItemsAdapter adapter = new RecentItemsAdapter(this, values);
+	        adapter = new ComicIssueListAdapter(this, values);
 	        listView.setAdapter(adapter);
-	        ((EditText)findViewById(R.id.librarySearchView)).setText("Filter");
+	        TextView searchBarTextView = (TextView) findViewById(R.id.librarySearchView);
+			searchBarTextView.addTextChangedListener(new TextWatcher() {
+	        	public void onTextChanged(CharSequence s, int start, int before, int count) {
+	        	    adapter.getFilter().filter(s);
+	        	}
+				public void afterTextChanged(Editable s) {
+					
+				}
+				public void beforeTextChanged(CharSequence s, int start,
+						int count, int after) {
+				}});
 	    }
 	    
 	    public void onItemClick(View V) {
+	    	//get title
+	    	//launch with correct issue object
         	Intent i = new Intent(this, ComicCruiserDetailsActivity.class);
+        	i.putExtra(ISSUE_TITLE_KEY, ((TextView)V).getText().toString());
+        	String t = i.getStringExtra(ISSUE_TITLE_KEY);
         	startActivity(i);
 	    }
 

@@ -1,16 +1,21 @@
 package com.cs446.ComicCruiser;
 
+import com.cs446.ComicCruiser.ComicRepository.RepositoryFacade;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
+import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class ComicCruiserHomeActivity extends Activity {
+	private static Activity instance;
     View.OnClickListener libraryClickHandler = new View.OnClickListener() {
         public void onClick(View v) {
         	Intent i = new Intent(ComicCruiserHomeActivity.this, ComicCruiserLibraryActivity.class);
@@ -26,13 +31,15 @@ public class ComicCruiserHomeActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        instance = this;
+        RepositoryFacade.initializeRepository();
+        
         setContentView(R.layout.home_view);
         
         ListView listView = (ListView) findViewById(R.id.homeRecentItemsList);
         
-        String[] values = new String[] { "Y the Last Man Issue 4", "Ex Machina Issue 17", "Sandman Volume 1: Preludes and Nocturnes" };
         
-        RecentItemsAdapter adapter = new RecentItemsAdapter(this, values);
+        ComicIssueListAdapter adapter = new ComicIssueListAdapter(this, RepositoryFacade.getRecentIssues());
         listView.setAdapter(adapter);
         
         Button b1 = (Button) findViewById(R.id.homeImportButton);
@@ -47,7 +54,11 @@ public class ComicCruiserHomeActivity extends Activity {
     }
     
     public void onItemClick(View V) {
+    	//get title
+    	//launch with correct issue object
     	Intent i = new Intent(this, ComicCruiserDetailsActivity.class);
+    	i.putExtra(ComicCruiserLibraryActivity.ISSUE_TITLE_KEY, ((TextView)V).getText().toString());
+    	String t = i.getStringExtra(ComicCruiserLibraryActivity.ISSUE_TITLE_KEY);
     	startActivity(i);
     }
     
@@ -65,5 +76,10 @@ public class ComicCruiserHomeActivity extends Activity {
             }
         }
     };
+	public static Activity getInstance() {
+		return instance;
+	}
+	
+	
    
 }

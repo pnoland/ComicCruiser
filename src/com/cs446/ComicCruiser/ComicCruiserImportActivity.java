@@ -2,20 +2,24 @@ package com.cs446.ComicCruiser;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import android.app.Activity;
+import com.cs446.ComicCruiser.ComicRepository.RepositoryFacade;
+
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class ComicCruiserImportActivity extends ListActivity {
     private File currentDir;
     private FileArrayAdapter adapter;
+	private String currentPath;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +55,6 @@ public class ComicCruiserImportActivity extends ListActivity {
 		 this.setListAdapter(adapter);
     }
     protected void onListItemClick(ListView l, View v, int position, long id) {
-		// TODO Auto-generated method stub
 		super.onListItemClick(l, v, position, id);
 		Option o = adapter.getItem(position);
 		if(o.getData().equalsIgnoreCase("folder")||o.getData().equalsIgnoreCase("parent directory")){
@@ -65,10 +68,39 @@ public class ComicCruiserImportActivity extends ListActivity {
 	}
     private void onFileClick(Option o)
     {
-    	Toast.makeText(this, "File Clicked: "+o.getName(), Toast.LENGTH_SHORT).show();
+    	AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+    	alert.setTitle("Enter a title");
+    	alert.setMessage("Enter a title for this issue:");
+
+    	// Set an EditText view to get user input 
+    	final EditText input = new EditText(this);
+    	input.setText(o.getName());
+    	alert.setView(input);
+
+    	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+    	public void onClick(DialogInterface dialog, int whichButton) {
+    	  Editable value = input.getText();
+    	  ComicCruiserImportActivity.this.addComicWithTitle(value.toString());
+    	  // Do something with value!
+    	  }
+    	});
+
+    	alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+    	  public void onClick(DialogInterface dialog, int whichButton) {
+    	    // Canceled.
+    	  }
+    	});
+
+    	currentPath = o.getPath();
+    	alert.show();
     }
 	    
-	    public void onItemClick(View V) {
+	    public void addComicWithTitle(String title) {
+	    	RepositoryFacade.addIssue(currentPath, title);
+	    	finish();
+	    }
+		public void onItemClick(View V) {
 	    }
 
 }
