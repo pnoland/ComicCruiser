@@ -1,4 +1,6 @@
-package com.cs446.ComicCruiser;
+package com.cs446.ComicCruiser.Activity;
+
+import com.cs446.ComicCruiser.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,7 +14,7 @@ public class ComicCruiserDetailsActivity extends Activity {
         public void onClick(View v) {
         	Intent i = new Intent(ComicCruiserDetailsActivity.this, ComicCruiserReadComicActivity.class);
         	String title = ComicCruiserDetailsActivity.this.getIntent().getStringExtra(ComicCruiserLibraryActivity.ISSUE_TITLE_KEY);
-        	i.putExtra(ComicCruiserLibraryActivity.ISSUE_TITLE_KEY, title);
+        	i.putExtra(ComicCruiserReadComicActivity.ISSUE_TITLE_KEY, title);
         	startActivity(i);
         }
       };

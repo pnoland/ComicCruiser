@@ -1,0 +1,54 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:id="@+id/tableRow5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+                <TextView
+			        xmlns:android="http://schemas.android.com/apk/res/android"
+			        android:id="@+id/label"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="20dp"
+			        android:clickable="true"
+			        android:onClick="onItemClick"
+			        android:text="TextView"
+			        android:textSize="20dp" />
+
+                <ToggleButton
+                    android:id="@+id/toggleButton1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ToggleButton" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            	    <EditText
+				        android:id="@+id/titleText"
+				        android:layout_width="match_parent"
+				        android:layout_height="wrap_content"
+				        android:layout_marginLeft="20dp"
+				        android:ems="10"
+				        android:textSize="20dp" >
+    				</EditText>
+        </TableRow>
+
+    </TableLayout>
+
+
+
+
+
+</LinearLayout>
+

@@ -1,4 +1,4 @@
-package com.cs446.ComicCruiser;
+package com.cs446.ComicCruiser.FrameRequest;
 import java.io.File;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

@@ -1,9 +1,11 @@
-package com.cs446.ComicCruiser;
+package com.cs446.ComicCruiser.Activity;
 
 import java.io.File;
 import java.util.ArrayList;
 
+import com.cs446.ComicCruiser.R;
 import com.cs446.ComicCruiser.ComicRepository.RepositoryFacade;
+import com.cs446.ComicCruiser.View.FoundItemsAdapter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,6 +20,7 @@ public class ComicCruiserInitializationActivity extends Activity {
         	ComicCruiserInitializationActivity.this.finish();
         }
       };
+      private FoundItemsAdapter adapter;
 	    @Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
@@ -26,7 +29,7 @@ public class ComicCruiserInitializationActivity extends Activity {
 	        ListView listView = (ListView) findViewById(R.id.initializationComicsList);
 	        
 	        
-	        FoundItemsAdapter adapter = new FoundItemsAdapter(this, new ArrayList<File>());
+	        adapter = new FoundItemsAdapter(this, new ArrayList<File>());
 	        listView.setAdapter(adapter);
 	      
 	        

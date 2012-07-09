@@ -1,6 +1,8 @@
-package com.cs446.ComicCruiser;
+package com.cs446.ComicCruiser.View;
 
 import java.util.List;
+
+import com.cs446.ComicCruiser.R;
 
 import android.app.Activity;
 import android.content.Context;

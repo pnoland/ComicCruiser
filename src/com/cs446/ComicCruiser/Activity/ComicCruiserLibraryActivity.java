@@ -1,8 +1,10 @@
-package com.cs446.ComicCruiser;
+package com.cs446.ComicCruiser.Activity;
 
 import java.util.ArrayList;
 
+import com.cs446.ComicCruiser.R;
 import com.cs446.ComicCruiser.ComicRepository.RepositoryFacade;
+import com.cs446.ComicCruiser.View.ComicIssueListAdapter;
 
 import android.app.Activity;
 import android.content.Intent;

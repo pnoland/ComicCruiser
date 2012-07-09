@@ -1,11 +1,14 @@
-package com.cs446.ComicCruiser;
+package com.cs446.ComicCruiser.Activity;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.cs446.ComicCruiser.R;
 import com.cs446.ComicCruiser.ComicRepository.RepositoryFacade;
+import com.cs446.ComicCruiser.View.FileArrayAdapter;
+import com.cs446.ComicCruiser.View.Option;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;

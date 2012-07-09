@@ -12,7 +12,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import com.cs446.ComicCruiser.ComicCruiserHomeActivity;
+import com.cs446.ComicCruiser.Activity.ComicCruiserHomeActivity;
 import com.google.gson.*;
 import com.google.gson.internal.StringMap;
 import com.google.gson.reflect.TypeToken;
@@ -88,6 +88,16 @@ public class RepositoryFacade {
 			values.add(issue.getTitle());
 		}
 		return values;
+	}
+	
+	public static ImageIterator openIssueForReading(Issue issue){
+		//move to front of queue
+		//get image iterator
+		return new PageIterator(issue);
+	}
+	
+	public static void closeIssue(Issue issue){
+		//recycle bitmaps
 	}
 	
 }

@@ -1,4 +1,4 @@
-package com.cs446.ComicCruiser;
+package com.cs446.ComicCruiser.View;
 
 import com.cs446.ComicCruiser.ComicRepository.ImageIterator;
 
@@ -471,6 +471,9 @@ public final class HorizontalPager extends ViewGroup {
         } else {
             mScroller.startScroll(getScrollX(), 0, delta, 0, duration);
         }
+        if(whichScreen == 1){
+        	getNextPage();
+        }
         invalidate();
     }
     
@@ -503,15 +506,18 @@ public final class HorizontalPager extends ViewGroup {
 		addView(imageView);
 	}
 	
-	private class ExtractImageTask extends AsyncTask {
+	private class ExtractImageTask extends AsyncTask<Object, Bitmap, Bitmap> {
 	    protected Bitmap doInBackground(Object... urls) {
 	        return imageIterator.getNextPage();
 	    }
 
+	    @Override
 	    protected void onPostExecute(Bitmap result) {
 	        TouchImageView imageView = new TouchImageView(getContext());
 	        imageView.setImageBitmap(result);
 	        addView(imageView);
+	        removeViewAt(0);
+	        snapToScreen(0, 0);
 	    }
 	}
 }

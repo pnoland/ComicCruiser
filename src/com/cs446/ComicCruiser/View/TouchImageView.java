@@ -1,4 +1,4 @@
-package com.cs446.ComicCruiser;
+package com.cs446.ComicCruiser.View;
 
 import com.cs446.ComicCruiser.ComicRepository.ImageIterator;
 
@@ -15,6 +15,8 @@ import android.widget.ImageView;
 public class TouchImageView extends ImageView {
 
 Matrix matrix = new Matrix();
+
+private Bitmap bm;
 
 // We can be in one of these 3 states
 static final int NONE = 0;
@@ -128,6 +130,7 @@ public void setImageBitmap(Bitmap bm) {
     super.setImageBitmap(bm);
     bmWidth = bm.getWidth();
     bmHeight = bm.getHeight();
+    this.bm = bm;
 }
 
 public void setMaxZoom(float x)
@@ -226,5 +229,13 @@ private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureLis
 	    bottom = height * saveScale - height - (2 * redundantYSpace * saveScale);
 	    setImageMatrix(matrix);
 	}
+	
+	@Override
+		protected void onDetachedFromWindow() {
+			// TODO Auto-generated method stub
+			super.onDetachedFromWindow();
+			bm.recycle();
+			System.gc();
+		}
 
 }

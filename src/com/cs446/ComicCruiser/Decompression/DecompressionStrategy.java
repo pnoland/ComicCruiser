@@ -3,20 +3,21 @@ package com.cs446.ComicCruiser.Decompression;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.zip.ZipEntry;
+import java.io.InputStream;
 import java.util.zip.ZipInputStream;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 
-public class DecompressionFacade {
+public abstract class DecompressionStrategy {
 	
-	public static DecompressionStrategy getNextBitmap(String path){
-		return DecompressionStrategyContext.getDecompressionStrategy(new File(path));
+	protected File compressedFile;
+	
+	public DecompressionStrategy(File compressedFile){
+		this.compressedFile = compressedFile;
 	}
 	
-	public static Bitmap seekToBitmap(String path, int index){
-		return null;
-	}
+	public abstract InputStream decompressNextImage();
+
 }

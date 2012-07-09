@@ -1,15 +1,18 @@
-package com.cs446.ComicCruiser;
+package com.cs446.ComicCruiser.Activity;
 
+import com.cs446.ComicCruiser.R;
 import com.cs446.ComicCruiser.ComicRepository.ImageIterator;
 import com.cs446.ComicCruiser.ComicRepository.Issue;
 import com.cs446.ComicCruiser.ComicRepository.RepositoryFacade;
+import com.cs446.ComicCruiser.View.HorizontalPager;
 
 import android.app.Activity;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 public class ComicCruiserReadComicActivity extends Activity {
-    public void onCreate(Bundle savedInstanceState) {
+    protected static final String ISSUE_TITLE_KEY = "com.cs446.ComicCruiser.issue_title_key";
+
+	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.read_comic_view);
         //TouchImageView imageView = (TouchImageView)((findViewById(R.id.readComicImage)));
@@ -17,7 +20,7 @@ public class ComicCruiserReadComicActivity extends Activity {
         
         String title = getIntent().getStringExtra(ComicCruiserLibraryActivity.ISSUE_TITLE_KEY);
         Issue issue = RepositoryFacade.getIssueByTitle(title);
-        ImageIterator iterator = new ImageIterator(issue);
+        ImageIterator iterator = RepositoryFacade.openIssueForReading(issue);
         pager.setImageIterator(iterator);
         pager.initialize();
     }

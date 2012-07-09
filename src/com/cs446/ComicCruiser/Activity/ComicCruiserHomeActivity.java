@@ -1,6 +1,8 @@
-package com.cs446.ComicCruiser;
+package com.cs446.ComicCruiser.Activity;
 
+import com.cs446.ComicCruiser.R;
 import com.cs446.ComicCruiser.ComicRepository.RepositoryFacade;
+import com.cs446.ComicCruiser.View.ComicIssueListAdapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;

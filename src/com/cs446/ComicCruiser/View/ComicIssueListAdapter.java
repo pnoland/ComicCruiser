@@ -1,6 +1,8 @@
-package com.cs446.ComicCruiser;
+package com.cs446.ComicCruiser.View;
 
 import java.util.ArrayList;
+
+import com.cs446.ComicCruiser.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;

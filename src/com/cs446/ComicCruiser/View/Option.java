@@ -1,4 +1,4 @@
-package com.cs446.ComicCruiser;
+package com.cs446.ComicCruiser.View;
 
 public class Option implements Comparable<Option>{
 	private String name;
