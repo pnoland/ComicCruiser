@@ -54,6 +54,10 @@ public class RepositoryFacade {
 		SharedPreferences settings = ComicCruiserHomeActivity.getInstance().getSharedPreferences("ComicCruiserPreferences", Activity.MODE_PRIVATE); 
 		Type issueListType = new TypeToken<Vector<Issue>>(){}.getType();
 		issueList = gson.fromJson(settings.getString(PREFERENCE_ISSUE_LIST, null), issueListType);
+		//need to check to make sure issueList does not get set to null
+		if(issueList == null){
+			issueList = new Vector<Issue>();
+		}
 	}
 	
 	public static void persistRepository(){
