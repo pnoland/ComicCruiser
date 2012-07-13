@@ -8,6 +8,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.util.EntityUtils;
@@ -41,7 +42,8 @@ public class NetworkWorker extends AsyncTask<String, Integer, Boolean>{
 			File file = new File(filePaths[0]);
 			
 			MultipartEntity mpEntity = new MultipartEntity();
-			mpEntity.addPart("userfile", new FileBody(file));
+			mpEntity.addPart("file", new FileBody(file));
+			mpEntity.addPart("fileSz", new StringBody(Long.toString(file.length())));
 			
 			httppost.setEntity(mpEntity);
 			HttpResponse response = httpclient.execute(httppost);
