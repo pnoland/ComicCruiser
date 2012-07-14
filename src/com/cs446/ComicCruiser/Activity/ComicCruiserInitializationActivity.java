@@ -28,10 +28,8 @@ public class ComicCruiserInitializationActivity extends Activity {
 	        
 	        ListView listView = (ListView) findViewById(R.id.initializationComicsList);
 	        
-	        
-	        adapter = new FoundItemsAdapter(this, new ArrayList<File>());
+	        adapter = new FoundItemsAdapter(this, new ArrayList<File>(), this);
 	        listView.setAdapter(adapter);
-	      
 	        
 	        Button b1 = (Button) findViewById(R.id.initializationImportButton);
 	        b1.setOnClickListener(importClickHandler);
