@@ -1,6 +1,7 @@
 package com.cs446.ComicCruiser.View;
 
 import com.cs446.ComicCruiser.ComicRepository.ImageIterator;
+import com.cs446.ComicCruiser.ComicRepository.RepositoryFacade;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -519,6 +520,12 @@ public final class HorizontalPager extends ViewGroup {
 	        removeViewAt(0);
 	        snapToScreen(0, 0);
 	    }
+	}
+	
+	@Override
+	protected void onDetachedFromWindow() {
+		super.onDetachedFromWindow();
+		RepositoryFacade.closeIssue(imageIterator);
 	}
 }
 

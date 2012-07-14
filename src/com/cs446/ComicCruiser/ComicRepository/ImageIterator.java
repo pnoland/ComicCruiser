@@ -8,8 +8,12 @@ import android.graphics.Bitmap;
 public abstract class ImageIterator {
 	
 	protected Issue issue;
-	protected int currentPage = 0;
-	protected int currentFame = 0;
+	public Issue getIssue() {
+		return issue;
+	}
+
+	protected int pageBookmark = 0;
+	protected int frameBookmark = 0;
 
 	protected DecompressionStrategy strategy;
 	
@@ -22,6 +26,10 @@ public abstract class ImageIterator {
 	
 	public abstract Bitmap getPreviousPage();
 	
-	public abstract Bitmap seekToPage(int index);
+	public abstract void seekToPage(int index);
+
+	public int getPageBookmark() {
+		return pageBookmark;
+	}
 
 }

@@ -1,11 +1,14 @@
 package com.cs446.ComicCruiser.ComicRepository;
 
+import java.io.File;
 import java.util.Vector;
 
 import com.cs446.ComicCruiser.Decompression.DecompressionFacade;
+import com.cs446.ComicCruiser.Decompression.DecompressionStrategyContext;
 import com.cs446.ComicCruiser.FrameRequest.FrameData;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 public class Issue {
 	private String filename;
@@ -64,6 +67,19 @@ public class Issue {
 
 	public void setFrameBookmark(int frameBookmark) {
 		this.frameBookmark = frameBookmark;
+	}
+	
+	public Bitmap getCoverPage(){
+		return BitmapFactory.decodeStream(DecompressionStrategyContext.getDecompressionStrategy(new File(filename)).decompressNextImage());
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(! (o instanceof Issue)){
+			return false;
+		}
+		Issue i = (Issue) o;
+		return i.getTitle().equals(this.title);
 	}
 
 }

@@ -21,9 +21,8 @@ public class FrameIterator extends ImageIterator {
 	}
 
 	@Override
-	public Bitmap seekToPage(int index) {
+	public void seekToPage(int index) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

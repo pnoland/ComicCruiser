@@ -30,9 +30,12 @@ public class RepositoryFacade {
 
 	private static final int RECENTLY_READ_ISSUE_LIMIT = 3;
 
+
+	private static final String PREFERENCE_RECENTLY_READ_LIST = "AppRecentlyReadList";
+
 	
-	static Vector<Issue> issueList;
-	static LimitedQueue<Issue> recentlyRead;
+	private static ArrayList<Issue> issueList;
+	private static ArrayList<Issue> recentlyRead;
 	
 	public static Issue getIssueById(String id){
 		return null;
@@ -45,7 +48,7 @@ public class RepositoryFacade {
 		}
 		return null;
 	}
-	public static Vector<Issue> getIssueList(){
+	public static ArrayList<Issue> getIssueList(){
 		return issueList;
 	}
 	public static Vector<Issue> getFilteredIssueList(String filterString){
@@ -57,20 +60,29 @@ public class RepositoryFacade {
 		//read up issue objects
 		Gson gson = new Gson();
 		SharedPreferences settings = ComicCruiserHomeActivity.getInstance().getSharedPreferences("ComicCruiserPreferences", Activity.MODE_PRIVATE); 
-		Type issueListType = new TypeToken<Vector<Issue>>(){}.getType();
+		Type issueListType = new TypeToken<ArrayList<Issue>>(){}.getType();
 		issueList = gson.fromJson(settings.getString(PREFERENCE_ISSUE_LIST, null), issueListType);
 		if(issueList == null){
-			issueList = new Vector<Issue>();
+			issueList = new ArrayList<Issue>();
 		}
-		recentlyRead = new LimitedQueue<Issue>(RepositoryFacade.RECENTLY_READ_ISSUE_LIMIT);
+		Type recentlyReadType = new TypeToken<ArrayList<Issue>>(){}.getType();
+		recentlyRead = gson.fromJson(settings.getString(PREFERENCE_RECENTLY_READ_LIST, null), recentlyReadType);
+		if(recentlyRead== null){
+			recentlyRead = new ArrayList<Issue>(RepositoryFacade.RECENTLY_READ_ISSUE_LIMIT);
+		}
 	}
 	
 	public static void persistRepository(){
 		Gson gson = new Gson();
-		String json = gson.toJson(issueList);
+		
+		String listJson = gson.toJson(issueList);
+		String recentJson = gson.toJson(recentlyRead);
+		
 		SharedPreferences settings = ComicCruiserHomeActivity.getInstance().getSharedPreferences("ComicCruiserPreferences", Activity.MODE_PRIVATE); 
 		Editor editor = settings.edit();
-		editor.putString(PREFERENCE_ISSUE_LIST, json);
+		
+		editor.putString(PREFERENCE_ISSUE_LIST, listJson);
+		editor.putString(PREFERENCE_RECENTLY_READ_LIST, recentJson);
 		editor.commit();
 	}
 	public static void addIssue(String filename, String title){
@@ -101,29 +113,24 @@ public class RepositoryFacade {
 	
 	public static ImageIterator openIssueForReading(Issue issue){
 		//move to front of queue
-		recentlyRead.add(issue);
+		if(!recentlyRead.contains(issue)){
+			recentlyRead.add(0, issue);
+			if(recentlyRead.size() > RECENTLY_READ_ISSUE_LIMIT){
+				recentlyRead.remove(RECENTLY_READ_ISSUE_LIMIT);
+			}
+		}
 		//get image iterator
-		return new PageIterator(issue);
+		ImageIterator iterator = new PageIterator(issue);
+		
+		iterator.seekToPage(issue.getPageBookmark());
+		
+		return iterator;
 	}
 	
-	public static void closeIssue(Issue issue){
+	public static void closeIssue(ImageIterator iterator){
 		//recycle bitmaps
-		//set bootmark?
-	}
-	
-	public static class LimitedQueue<E> extends LinkedList<E> {
-
-	    private int limit;
-
-	    public LimitedQueue(int limit) {
-	        this.limit = limit;
-	    }
-
-	    @Override
-	    public boolean add(E o) {
-	        super.add(o);
-	        while (size() > limit) { super.remove(); }
-	        return true;
-	    }
+		//set bootmark
+		Issue issue = iterator.getIssue();
+		issue.setPageBookmark(iterator.getPageBookmark());
 	}
 }

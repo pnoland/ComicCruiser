@@ -13,19 +13,24 @@ public class PageIterator extends ImageIterator {
 
 	@Override
 	public Bitmap getNextPage() {
+		pageBookmark++;
 		return BitmapFactory.decodeStream(strategy.decompressNextImage());
 	}
 
 	@Override
 	public Bitmap getPreviousPage() {
 		// TODO Auto-generated method stub
+		pageBookmark--;
 		return null;
 	}
 
 	@Override
-	public Bitmap seekToPage(int index) {
-		// TODO Auto-generated method stub
-		return null;
+	public void seekToPage(int index) {
+		for(int i = 0; i < index; i++){
+			strategy.decompressNextImage();
+			pageBookmark++;
+		}
+		pageBookmark-=2;
 	}
 
 }
