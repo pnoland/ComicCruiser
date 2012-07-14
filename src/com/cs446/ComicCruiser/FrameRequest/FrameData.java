@@ -1,16 +1,16 @@
 package com.cs446.ComicCruiser.FrameRequest;
 
 public class FrameData {
-	private boolean valid;
+	private int x, y, width, height, pageNum;
 	
 	public int getX() {
 		return x;
 	}
-
+	
 	public void setX(int x) {
 		this.x = x;
 	}
-
+	
 	public int getY() {
 		return y;
 	}
@@ -34,21 +34,12 @@ public class FrameData {
 	public void setHeight(int height) {
 		this.height = height;
 	}
-
-	public void setValid(boolean valid) {
-		this.valid = valid;
+	
+	public int getPageNum() {
+		return pageNum;
 	}
-
-	private int x, y, width, height;
-
-	public boolean isValid() {
-		return valid;
+	
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
 	}
-
-	public void fetchFramedata() {
-		//fetch frame data from server
-		//deserialize
-		valid = true;
-	}
-
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import com.cs446.ComicCruiser.R;
+import com.cs446.ComicCruiser.Activity.ComicCruiserInitializationActivity;
 import com.cs446.ComicCruiser.ComicRepository.FileSystemWorker;
 
 import android.app.Activity;
@@ -18,13 +19,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 //Adapter used to update the view when performing library initialization
-public class FoundItemsAdapter extends ArrayAdapter<String> {
+public class FoundItemsAdapter extends ArrayAdapter<File> {
 	private final Context context;
 	private ArrayList<File> values;
-	private Activity activity;
+	private ComicCruiserInitializationActivity activity;
 
-	public FoundItemsAdapter(Context context, ArrayList<File> values, Activity activity) {
-		super(context, R.layout.found_items_row_layout);
+	public FoundItemsAdapter(Context context, ArrayList<File> values, ComicCruiserInitializationActivity activity) {
+		super(context, R.layout.found_items_row_layout, values);
 		this.context = context;
 		this.values = values;
 		this.activity = activity;
@@ -37,14 +38,17 @@ public class FoundItemsAdapter extends ArrayAdapter<String> {
 		}).start();
 	}
 	
-	public void reportFoundItems(ArrayList<File> items){
-		values.clear();
-		values.addAll(items);
-		
+	public ArrayList<File> getValues() {
+		return values;
+	}
+	
+	public void reportFoundItems(final ArrayList<File> items){
 		//Need the UI thread to update the view
 		activity.runOnUiThread(new Runnable(){
 			public void run(){
-				notifyDataSetChanged();
+				values.clear();
+				values.addAll(items);
+				FoundItemsAdapter.this.notifyDataSetChanged();
 			}
 		});
 	}
@@ -61,5 +65,10 @@ public class FoundItemsAdapter extends ArrayAdapter<String> {
 	private void listFoundItems() {
 		ArrayList<File> allItems = FileSystemWorker.findExistingIssues(this);
 		reportFoundItems(allItems);
+		activity.runOnUiThread(new Runnable(){
+			public void run(){
+				activity.showImportButton();
+			}
+		});
 	}
 }

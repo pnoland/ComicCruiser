@@ -14,6 +14,7 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
@@ -26,7 +27,7 @@ public class ComicCruiserImportActivity extends ListActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        currentDir = new File("/sdcard/");
+        currentDir = new File(Environment.getExternalStorageDirectory().getPath());
         fill(currentDir);
     }
     private void fill(File f)

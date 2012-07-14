@@ -2,6 +2,7 @@ package com.cs446.ComicCruiser.Activity;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.cs446.ComicCruiser.R;
 import com.cs446.ComicCruiser.ComicRepository.RepositoryFacade;
@@ -9,14 +10,21 @@ import com.cs446.ComicCruiser.View.FoundItemsAdapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 public class ComicCruiserInitializationActivity extends Activity {
     View.OnClickListener importClickHandler = new View.OnClickListener() {
         public void onClick(View v) {
+        	List<File> comicFiles = adapter.getValues();
+        	for(File f : comicFiles) {
+        		RepositoryFacade.addIssue(f.getPath(), f.getName());
+        	}
+        	
         	ComicCruiserInitializationActivity.this.finish();
         }
       };
@@ -38,4 +46,10 @@ public class ComicCruiserInitializationActivity extends Activity {
 	    public void onItemClick(View V) {
 	    }
 
+	    public void showImportButton(){
+	    	Button b1 = (Button) findViewById(R.id.initializationImportButton);
+	    	b1.setVisibility(View.VISIBLE);
+	    	ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar1);
+	    	pb.setVisibility(View.GONE);
+	    }
 }

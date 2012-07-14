@@ -1,9 +1,11 @@
 package com.cs446.ComicCruiser.ComicRepository;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.cs446.ComicCruiser.Decompression.DecompressionFacade;
 import com.cs446.ComicCruiser.FrameRequest.FrameData;
+import com.cs446.ComicCruiser.FrameRequest.FrameRequesterFacade;
 
 import android.graphics.Bitmap;
 
@@ -11,7 +13,7 @@ public class Issue {
 	private String filename;
 	private String title;
 	
-	private FrameData frameData;
+	private List<FrameData> frameData;
 	
 	private int pageBookmark = 0;
 	private int frameBookmark = 0;
@@ -25,21 +27,19 @@ public class Issue {
 	public void setMode(int mode) {
 		this.mode = mode;
 	}
-
-	private Issue(){}
 	
 	public Issue(String filename, String title){
 		this.filename = filename;
 		this.title = title;
-		frameData = new FrameData();
+		frameData = new ArrayList<FrameData>();
 	}
 	
-	public void getFrameData(){
-		frameData.fetchFramedata();
+	public void fetchFrameData(){
+		FrameRequesterFacade.requestFrameBoundaries(this);
 	}
 	
 	public boolean hasFrameData(){
-		return frameData.isValid();
+		return !frameData.isEmpty();
 	}
 
 	public String getFilename() {

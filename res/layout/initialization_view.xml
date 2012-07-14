@@ -16,16 +16,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <ListView
-        android:id="@+id/initializationComicsList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
-
     <Button
         android:id="@+id/initializationImportButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Import!" />
+        android:text="Import!"
+        android:visibility="gone" />
+    
+    <ListView
+        android:id="@+id/initializationComicsList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    
+
     
 </LinearLayout>

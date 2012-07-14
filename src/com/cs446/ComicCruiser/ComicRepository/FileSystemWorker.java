@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 
+import android.os.Environment;
+
 import com.cs446.ComicCruiser.View.FoundItemsAdapter;
 
 public class FileSystemWorker {
@@ -15,8 +17,7 @@ public class FileSystemWorker {
 			}
 		};
 		
-		//TO DO: Ensure that the directory is always called sdcard on every Android device
-		return listIssueFiles(new File("/sdcard/"), issueFilter, true, adapter);
+		return listIssueFiles(new File(Environment.getExternalStorageDirectory().getPath()), issueFilter, true, adapter);
 	}
 	
 	public static ArrayList<File> listIssueFiles(File rootDir, FileFilter filter, boolean recursive, FoundItemsAdapter adapter) {
