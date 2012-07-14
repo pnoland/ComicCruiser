@@ -82,6 +82,11 @@ public class ComicCruiserHomeActivity extends Activity {
 		return instance;
 	}
 	
+	@Override
+	public void onDetachedFromWindow() {
+		super.onDetachedFromWindow();
+		RepositoryFacade.persistRepository();
+	}
 	
    
 }
