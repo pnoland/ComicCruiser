@@ -58,7 +58,7 @@ public class FoundItemsAdapter extends ArrayAdapter<File> {
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View rowView = inflater.inflate(R.layout.initialization_items_row_layout, parent, false);
 		TextView textView = (TextView) rowView.findViewById(R.id.label);
-		textView.setText(values.get(position).getPath());
+		textView.setText(values.get(position).getPath() + "\n");//Concatenated a \n so the bottom line doesn't get cut off
 		return rowView;
 	}
 	

@@ -15,6 +15,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.util.EntityUtils;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
@@ -34,10 +36,7 @@ public class NetworkWorker extends AsyncTask<String, Integer, Boolean>{
 		return fd;
 	}
 	
-	//Sets fd to be the FrameData contained within the given HttpResponse
-	private void extractFrameData(HttpResponse response) {
-		fd = new ArrayList<FrameData>();
-		
+	private Document convertResponseToXMLDoc(HttpResponse response) {
 		try{
 			HttpEntity r_entity = response.getEntity();
 	        String xmlString = EntityUtils.toString(r_entity);
@@ -45,13 +44,57 @@ public class NetworkWorker extends AsyncTask<String, Integer, Boolean>{
 	        DocumentBuilder db = factory.newDocumentBuilder();
 	        InputSource inStream = new InputSource();
 	        inStream.setCharacterStream(new StringReader(xmlString));
-	        Document doc = db.parse(inStream);  
+	        Document doc = db.parse(inStream);
+	        return doc;
+		} catch(Exception e){//TO DO: Deal with specific exceptions?
+			return null;
+		}
+	}
+	
+	private int getIntFromFrameElement(Element frameElement, String attribute){
+		NodeList xList = frameElement.getElementsByTagName(attribute);
+		Element xElement = (Element)xList.item(0);
+		NodeList textXList = xElement.getChildNodes();
+		String x = ((Node)textXList.item(0)).getNodeValue();
+		return Integer.parseInt(x);
+	}
+	
+	//Sets fd to be the FrameData contained within the given HttpResponse
+	private void extractFrameData(HttpResponse response) {
+		fd = new ArrayList<FrameData>();
+		
+		try{
+			//Put the response into an XML parser
+			Document doc = convertResponseToXMLDoc(response);
 
+	        //Iterate through the pages in the comic
 	        NodeList pageList = doc.getElementsByTagName("page");
 	        for(int i = 0; i < pageList.getLength(); i++) {
-	            //TO DO:
-	        	//Iterate through the frameList for each page
-	        	//Create FrameData objects and add them to fd
+	        	Element pageElement = (Element) pageList.item(i);
+	        	
+	        	//Iterate through the frames on the page
+		        NodeList frameList = pageElement.getElementsByTagName("frame");
+		        for(int j = 0; j < frameList.getLength(); j++) {
+		        	
+		        	Node frameNode = frameList.item(j);
+		        	if(frameNode.getNodeType() == Node.ELEMENT_NODE){
+		        		Element frameElement = (Element)frameNode;
+		        		FrameData frameObj = new FrameData();
+		        		
+		        		//Set the current frame's x value
+		        		frameObj.setX(getIntFromFrameElement(frameElement, "x"));
+		        		//Set the current frame's y value
+		        		frameObj.setY(getIntFromFrameElement(frameElement, "y"));
+		        		//Set the current frame's width value
+		        		frameObj.setWidth(getIntFromFrameElement(frameElement, "w"));
+		        		//Set the current frame's height value
+		        		frameObj.setHeight(getIntFromFrameElement(frameElement, "h"));
+		        		//Set the current frame's page number
+		        		frameObj.setPageNum(i);
+		        		//Add the current frame to the frame list
+		        		fd.add(frameObj);
+		        	}
+		        }
 	        }
 		} catch(Exception e) {
 			//TO DO: Deal with specific exceptions?

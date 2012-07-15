@@ -16,14 +16,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class ComicCruiserInitializationActivity extends Activity {
     View.OnClickListener importClickHandler = new View.OnClickListener() {
         public void onClick(View v) {
-        	List<File> comicFiles = adapter.getValues();
-        	for(File f : comicFiles) {
-        		RepositoryFacade.addIssue(f.getPath(), f.getName());
-        	}
+        	RepositoryFacade.batchAdd(adapter.getValues());
         	
         	ComicCruiserInitializationActivity.this.finish();
         }
@@ -51,5 +49,7 @@ public class ComicCruiserInitializationActivity extends Activity {
 	    	b1.setVisibility(View.VISIBLE);
 	    	ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar1);
 	    	pb.setVisibility(View.GONE);
+	    	TextView tv = (TextView) findViewById(R.id.findingComicsLabel);
+	    	tv.setVisibility(View.GONE);
 	    }
 }

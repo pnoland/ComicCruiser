@@ -19,7 +19,7 @@ public abstract class ImageIterator {
 	
 	public ImageIterator(Issue issue){
 		this.issue = issue;
-		strategy = DecompressionFacade.getNextBitmap(issue.getFilename());
+		strategy = DecompressionFacade.getNextBitmap(issue.getFilepath());
 	}
 	
 	public abstract Bitmap getNextPage();

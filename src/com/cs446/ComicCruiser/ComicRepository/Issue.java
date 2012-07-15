@@ -13,7 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 public class Issue {
-	private String filename;
+	private String filepath;
 	private String title;
 	
 	private List<FrameData> frameData;
@@ -31,8 +31,8 @@ public class Issue {
 		this.mode = mode;
 	}
 	
-	public Issue(String filename, String title){
-		this.filename = filename;
+	public Issue(String filepath, String title){
+		this.filepath = filepath;
 		this.title = title;
 		frameData = new ArrayList<FrameData>();
 	}
@@ -45,8 +45,8 @@ public class Issue {
 		return !frameData.isEmpty();
 	}
 
-	public String getFilename() {
-		return filename;
+	public String getFilepath() {
+		return filepath;
 	}
 
 	public String getTitle() {
@@ -70,7 +70,7 @@ public class Issue {
 	}
 	
 	public Bitmap getCoverPage(){
-		return BitmapFactory.decodeStream(DecompressionStrategyContext.getDecompressionStrategy(new File(filename)).decompressNextImage());
+		return BitmapFactory.decodeStream(DecompressionStrategyContext.getDecompressionStrategy(new File(filepath)).decompressNextImage());
 	}
 	
 	@Override

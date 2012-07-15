@@ -50,9 +50,12 @@ public class ComicCruiserHomeActivity extends Activity {
         b1.setOnClickListener(importClickHandler);
         b2.setOnClickListener(libraryClickHandler);
         
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Import all comics?").setPositiveButton("Yes", dialogClickListener)
-            .setNegativeButton("No", dialogClickListener).show();
+        //Only show Import dialog is the library is empty
+        if(RepositoryFacade.getIssueList().isEmpty()) {
+        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Import all comics?").setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
+        }
     }
     
     public void onItemClick(View V) {

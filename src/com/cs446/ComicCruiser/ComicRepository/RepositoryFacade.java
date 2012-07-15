@@ -12,6 +12,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Vector;
 
 import com.cs446.ComicCruiser.Activity.ComicCruiserHomeActivity;
@@ -85,14 +86,22 @@ public class RepositoryFacade {
 		editor.putString(PREFERENCE_RECENTLY_READ_LIST, recentJson);
 		editor.commit();
 	}
-	public static void addIssue(String filename, String title){
+	public static void addIssue(String filepath, String title){
 		//create issue object
-		Issue issue = new Issue(filename, title);
+		Issue issue = new Issue(filepath, title);
 		//add to issue list
 		issueList.add(issue);
 		//issue.initializeImages();
 		//persist
 		persistRepository();
+	}
+	public static void batchAdd(List<File> comicFiles) {
+    	for(File f : comicFiles) {
+    		Issue issue = new Issue(f.getPath(), f.getName());
+    		issueList.add(issue);
+    	}
+    	
+    	persistRepository();
 	}
 	public static ArrayList<String> getRecentIssues() {
 		//TODO: limit number and make them most recently read issues
