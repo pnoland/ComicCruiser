@@ -43,7 +43,11 @@ public class ComicCruiserImportActivity extends ListActivity {
 					dir.add(new Option(ff.getName(),"Folder",ff.getAbsolutePath()));
 				else
 				{
-					fls.add(new Option(ff.getName(),"File Size: "+ff.length(),ff.getAbsolutePath()));
+					String name = ff.getName();
+					int mid= name.lastIndexOf(".");
+					String ext=name.substring(mid+1,name.length()); 
+					if(ext.equals("cbz")|| ext.equals("cbr"))
+						fls.add(new Option(ff.getName(),"File Size: "+ff.length(),ff.getAbsolutePath()));
 				}
 			 }
 		 }catch(Exception e)
