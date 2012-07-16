@@ -52,9 +52,6 @@ public class RepositoryFacade {
 	public static ArrayList<Issue> getIssueList(){
 		return issueList;
 	}
-	public static Vector<Issue> getFilteredIssueList(String filterString){
-		return null;
-	}
 	@SuppressWarnings("unchecked")
 	public static void initializeRepository(){
 		
@@ -141,5 +138,11 @@ public class RepositoryFacade {
 		//set bootmark
 		Issue issue = iterator.getIssue();
 		issue.setPageBookmark(iterator.getPageBookmark());
+	}
+	
+	public static void deleteIssue(Issue issue){
+		issueList.remove(issue);
+		recentlyRead.remove(issue);
+		persistRepository();
 	}
 }

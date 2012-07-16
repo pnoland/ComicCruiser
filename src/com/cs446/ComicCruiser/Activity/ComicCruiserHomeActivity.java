@@ -91,5 +91,12 @@ public class ComicCruiserHomeActivity extends Activity {
 		RepositoryFacade.persistRepository();
 	}
 	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		ListView listView = (ListView) findViewById(R.id.homeRecentItemsList);
+        ComicIssueListAdapter adapter = new ComicIssueListAdapter(this, RepositoryFacade.getRecentIssues());
+        listView.setAdapter(adapter);
+	}
    
 }

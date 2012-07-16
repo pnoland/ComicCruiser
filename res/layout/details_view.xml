@@ -1,41 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/detailsTitleView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:gravity="center"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <ImageView
-        android:id="@+id/detailsCoverImage"
-        android:layout_width="250dp"
-        android:layout_height="300dp"
-        android:scaleType="center"
-        android:layout_gravity="center" />
-
-    <Button
-        android:id="@+id/detailsFrameButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Read Frame by Frame" />
-
-    <Button
-        android:id="@+id/detailsNormalButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Read Normally" />
-
-
-    <Button
-        android:id="@+id/detailsDeleteButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Delete" />
+    android:orientation="vertical">
     
-</LinearLayout>
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
+	
+	    <TextView
+	        android:id="@+id/detailsTitleView"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text=""
+	        android:gravity="center"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	    <ImageView
+	        android:id="@+id/detailsCoverImage"
+	        android:layout_width="250dp"
+	        android:layout_height="300dp"
+	        android:scaleType="center"
+	        android:layout_gravity="center" />
+		
+	    <Button
+	        android:id="@+id/detailsFrameButton"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="Read Frame by Frame" />
+		
+	    <Button
+	        android:id="@+id/detailsNormalButton"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="Read Normally" />
+		
+		
+	    <Button
+	        android:id="@+id/detailsDeleteButton"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="Delete" />
+	    
+	</LinearLayout>
+</ScrollView>

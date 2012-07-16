@@ -52,5 +52,14 @@ public class ComicCruiserLibraryActivity extends Activity {
         	String t = i.getStringExtra(ISSUE_TITLE_KEY);
         	startActivity(i);
 	    }
+	    
+	    @Override
+	    protected void onResume() {
+	    	super.onResume();
+	    	ListView listView = (ListView) findViewById(R.id.libraryItemsList);
+	    	ArrayList<String> values = RepositoryFacade.getAllIssueTitles();
+	        adapter = new ComicIssueListAdapter(this, values);
+	        listView.setAdapter(adapter);
+	    }
 
 }
