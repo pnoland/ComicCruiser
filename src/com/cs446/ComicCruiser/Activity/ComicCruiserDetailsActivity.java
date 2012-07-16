@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.ImageView;
 
 public class ComicCruiserDetailsActivity extends Activity {
+	private static final int COVER_HEIGHT = 250;
+	private static final int COVER_WIDTH = 300;
 	private String title;
     View.OnClickListener readClickHandler = new View.OnClickListener() {
         public void onClick(View v) {
@@ -34,6 +36,10 @@ public class ComicCruiserDetailsActivity extends Activity {
         ((TextView)(findViewById(R.id.detailsTitleView))).setText(title);
         
         Bitmap bm = RepositoryFacade.getIssueByTitle(title).getCoverPage();
-        ((ImageView)(findViewById(R.id.detailsCoverImage))).setImageBitmap(bm);
+        ImageView cover = ((ImageView)(findViewById(R.id.detailsCoverImage)));
+        cover.setAdjustViewBounds(true);
+        cover.setMaxHeight(COVER_HEIGHT);
+        cover.setMaxWidth(COVER_WIDTH);
+        cover.setImageBitmap(bm);
     }
 }
