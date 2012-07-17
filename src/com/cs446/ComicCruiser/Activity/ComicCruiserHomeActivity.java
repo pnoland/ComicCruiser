@@ -56,6 +56,19 @@ public class ComicCruiserHomeActivity extends Activity {
             builder.setMessage("Import all comics?").setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener).show();
         }
+        
+        //Only show Recent Items label if there are recent items.
+        hideOrShowRecentItemsLabel();
+    }
+    
+    private void hideOrShowRecentItemsLabel(){
+    	if(RepositoryFacade.getRecentIssues().isEmpty()){
+        	TextView tv = (TextView) findViewById(R.id.homeRecentItemsLabel);
+	    	tv.setVisibility(View.GONE);
+        } else {
+        	TextView tv = (TextView) findViewById(R.id.homeRecentItemsLabel);
+	    	tv.setVisibility(View.VISIBLE);
+        }
     }
     
     public void onItemClick(View V) {
@@ -97,6 +110,8 @@ public class ComicCruiserHomeActivity extends Activity {
 		ListView listView = (ListView) findViewById(R.id.homeRecentItemsList);
         ComicIssueListAdapter adapter = new ComicIssueListAdapter(this, RepositoryFacade.getRecentIssues());
         listView.setAdapter(adapter);
+        //Only show Recent Items label if there are recent items.
+        hideOrShowRecentItemsLabel();
 	}
    
 }
