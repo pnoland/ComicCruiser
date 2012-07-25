@@ -24,8 +24,6 @@ public abstract class ImageIterator {
 	
 	public abstract Bitmap getNextPage();
 	
-	public abstract Bitmap getPreviousPage();
-	
 	public abstract void seekToPage(int index);
 
 	public int getPageBookmark() {

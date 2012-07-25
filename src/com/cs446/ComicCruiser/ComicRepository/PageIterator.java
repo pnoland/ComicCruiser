@@ -17,13 +17,6 @@ public class PageIterator extends ImageIterator {
 	}
 
 	@Override
-	public Bitmap getPreviousPage() {
-		// TODO Auto-generated method stub
-		pageBookmark--;
-		return null;
-	}
-
-	@Override
 	public void seekToPage(int index) {
 		for(int i = 0; i < index; i++){
 			strategy.decompressNextImage();

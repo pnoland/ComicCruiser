@@ -71,8 +71,11 @@ public class RepositoryFacade {
 		editor.commit();
 	}
 	public static void addIssue(String filepath, String title){
+		
 		//create issue object
 		Issue issue = new Issue(filepath, title);
+		if(issueList.contains(issue))//disallow duplicates
+			return;
 		//add to issue list
 		issueList.add(issue);
 		//issue.initializeImages();

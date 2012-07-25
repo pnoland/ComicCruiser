@@ -51,12 +51,13 @@ public class FrameIterator extends ImageIterator {
 	}
 
 	@Override
-	public Bitmap getPreviousPage() {
-		return null;
-	}
-
-	@Override
 	public void seekToPage(int index) {
+		int page = 0;
+		while(page != index){
+			FrameData fd = frameDataList.get(index++);
+			page = fd.getPageNum();
+		}
+		index--;
 	}
 
 }
