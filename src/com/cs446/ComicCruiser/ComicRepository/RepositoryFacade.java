@@ -117,7 +117,7 @@ public class RepositoryFacade {
 		return values;
 	}
 	
-	public static ImageIterator openIssueForReading(Issue issue){
+	public static ImageIterator openIssueForReading(Issue issue, boolean mode){
 		//move to front of queue
 		if(!recentlyRead.contains(issue)){
 			recentlyRead.add(0, issue);
@@ -126,9 +126,15 @@ public class RepositoryFacade {
 			}
 		}
 		//get image iterator
-		ImageIterator iterator = new PageIterator(issue);
+		ImageIterator iterator;
+		if(mode){
+			iterator = new FrameIterator(issue);
+		}
+		else{
+			iterator = new PageIterator(issue);
+		}
 		
-		iterator.seekToPage(issue.getPageBookmark());
+		//iterator.seekToPage(issue.getPageBookmark());
 		
 		return iterator;
 	}

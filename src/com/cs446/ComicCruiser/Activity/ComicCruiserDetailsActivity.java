@@ -16,18 +16,25 @@ public class ComicCruiserDetailsActivity extends Activity {
 	private static final int COVER_HEIGHT = 250;
 	private static final int COVER_WIDTH = 300;
 	private String title;
-    private View.OnClickListener readClickHandler = new View.OnClickListener() {
+    private View.OnClickListener readPageClickHandler = new View.OnClickListener() {
         public void onClick(View v) {
         	Intent i = new Intent(ComicCruiserDetailsActivity.this, ComicCruiserReadComicActivity.class);
-        	String title = ComicCruiserDetailsActivity.this.getIntent().getStringExtra(ComicCruiserLibraryActivity.ISSUE_TITLE_KEY);
         	i.putExtra(ComicCruiserReadComicActivity.ISSUE_TITLE_KEY, title);
+        	i.putExtra(ComicCruiserLibraryActivity.ISSUE_MODE_KEY, false);
         	startActivity(i);
         }
       };
+      private View.OnClickListener readFrameClickHandler = new View.OnClickListener() {
+          public void onClick(View v) {
+          	Intent i = new Intent(ComicCruiserDetailsActivity.this, ComicCruiserReadComicActivity.class);
+          	i.putExtra(ComicCruiserReadComicActivity.ISSUE_TITLE_KEY, title);
+          	i.putExtra(ComicCruiserLibraryActivity.ISSUE_MODE_KEY, true);
+          	startActivity(i);
+          }
+        };
       
      private View.OnClickListener deleteClickHandler = new View.OnClickListener() {
           public void onClick(View v) {
-          	String title = ComicCruiserDetailsActivity.this.getIntent().getStringExtra(ComicCruiserLibraryActivity.ISSUE_TITLE_KEY);
           	RepositoryFacade.deleteIssue(RepositoryFacade.getIssueByTitle(title));
           	ComicCruiserDetailsActivity.this.finish();
           }
@@ -39,10 +46,10 @@ public class ComicCruiserDetailsActivity extends Activity {
         Button b1 = (Button) findViewById(R.id.detailsNormalButton);
         Button b2 = (Button) findViewById(R.id.detailsFrameButton);
         Button b3 = (Button) findViewById(R.id.detailsDeleteButton);
-        b1.setOnClickListener(readClickHandler);
-        b2.setOnClickListener(readClickHandler);
+        b1.setOnClickListener(readPageClickHandler);
+        b2.setOnClickListener(readFrameClickHandler);
         b3.setOnClickListener(deleteClickHandler);
-        String title = ComicCruiserDetailsActivity.this.getIntent().getStringExtra(ComicCruiserLibraryActivity.ISSUE_TITLE_KEY);
+        title = ComicCruiserDetailsActivity.this.getIntent().getStringExtra(ComicCruiserLibraryActivity.ISSUE_TITLE_KEY);
         ((TextView)(findViewById(R.id.detailsTitleView))).setText(title);
         
         Bitmap bm = RepositoryFacade.getIssueByTitle(title).getCoverPage();

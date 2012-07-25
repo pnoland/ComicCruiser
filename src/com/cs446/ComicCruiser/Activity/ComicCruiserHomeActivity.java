@@ -76,7 +76,6 @@ public class ComicCruiserHomeActivity extends Activity {
     	//launch with correct issue object
     	Intent i = new Intent(this, ComicCruiserDetailsActivity.class);
     	i.putExtra(ComicCruiserLibraryActivity.ISSUE_TITLE_KEY, ((TextView)V).getText().toString());
-    	String t = i.getStringExtra(ComicCruiserLibraryActivity.ISSUE_TITLE_KEY);
     	startActivity(i);
     }
     

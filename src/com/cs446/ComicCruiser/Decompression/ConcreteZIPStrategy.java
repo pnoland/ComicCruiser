@@ -13,8 +13,8 @@ public class ConcreteZIPStrategy extends DecompressionStrategy {
 		super(compressedFile);
 	}
 	
-	FileInputStream fin;
-	ZipInputStream zin;
+	private FileInputStream fin;
+	private ZipInputStream zin;
 
 	@Override
 	public InputStream decompressNextImage() {

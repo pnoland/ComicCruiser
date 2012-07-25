@@ -44,6 +44,10 @@ public class Issue {
 	public boolean hasFrameData(){
 		return !frameData.isEmpty();
 	}
+	
+	public List<FrameData> getFrameData(){
+		return frameData;
+	}
 
 	public String getFilepath() {
 		return filepath;

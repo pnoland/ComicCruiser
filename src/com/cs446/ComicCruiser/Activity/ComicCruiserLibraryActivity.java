@@ -17,6 +17,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class ComicCruiserLibraryActivity extends Activity {
+		public static final String ISSUE_MODE_KEY = "com.cs446.ComicCruiser.issue_mode_key";
+
 		public static String ISSUE_TITLE_KEY = "com.cs446.ComicCruiser.issue_title_key";
 		
 		private ComicIssueListAdapter adapter;

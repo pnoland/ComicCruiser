@@ -12,11 +12,8 @@ import android.graphics.BitmapFactory.Options;
 
 public class DecompressionFacade {
 	
-	public static DecompressionStrategy getNextBitmap(String path){
+	public static DecompressionStrategy getDecompressionStrategy(String path){
 		return DecompressionStrategyContext.getDecompressionStrategy(new File(path));
 	}
 	
-	public static Bitmap seekToBitmap(String path, int index){
-		return null;
-	}
 }
