@@ -52,7 +52,11 @@ public class ComicCruiserImportActivity extends ListActivity {
 			 }
 		 }catch(Exception e)
 		 {
-			 
+			 AlertDialog alertDialog;
+			 alertDialog = new AlertDialog.Builder(this).create();
+			 alertDialog.setTitle("Error");
+			 alertDialog.setMessage("Could not read directory: " + f.getName());
+			 alertDialog.show();
 		 }
 		 Collections.sort(dir);
 		 Collections.sort(fls);
