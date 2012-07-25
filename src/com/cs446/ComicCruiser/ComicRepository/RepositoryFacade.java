@@ -1,23 +1,11 @@
 package com.cs446.ComicCruiser.ComicRepository;
 
 import java.io.File;
-import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Vector;
-
 import com.cs446.ComicCruiser.Activity.ComicCruiserHomeActivity;
 import com.google.gson.*;
-import com.google.gson.internal.StringMap;
 import com.google.gson.reflect.TypeToken;
 
 import android.app.Activity;
@@ -52,7 +40,6 @@ public class RepositoryFacade {
 	public static ArrayList<Issue> getIssueList(){
 		return issueList;
 	}
-	@SuppressWarnings("unchecked")
 	public static void initializeRepository(){
 		
 		//read up issue objects

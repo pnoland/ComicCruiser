@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -51,7 +50,6 @@ public class ComicCruiserLibraryActivity extends Activity {
 	    	//launch with correct issue object
         	Intent i = new Intent(this, ComicCruiserDetailsActivity.class);
         	i.putExtra(ISSUE_TITLE_KEY, ((TextView)V).getText().toString());
-        	String t = i.getStringExtra(ISSUE_TITLE_KEY);
         	startActivity(i);
 	    }
 	    

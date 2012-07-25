@@ -1,12 +1,9 @@
 package com.cs446.ComicCruiser.View;
 
-import com.cs446.ComicCruiser.ComicRepository.ImageIterator;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.PointF;
-import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -41,9 +38,6 @@ float right, bottom, origWidth, origHeight, bmWidth, bmHeight;
 ScaleGestureDetector mScaleDetector;
 
 Context context;
-
-private ImageIterator imageIterator;
-
 
 public TouchImageView(Context context){
 	super(context);

@@ -19,6 +19,7 @@ public class ComicIssueListAdapter extends ArrayAdapter<String> {
 
 	private Filter filter;
 	
+	@SuppressWarnings("unchecked")
 	public ComicIssueListAdapter(Context context, ArrayList<String> values) {
 		super(context, R.layout.recent_items_row_layout, values);
 		this.context = context;
@@ -43,6 +44,7 @@ public class ComicIssueListAdapter extends ArrayAdapter<String> {
     }
     
     private class IssueNameFilter extends Filter{
+		@SuppressWarnings("unchecked")
 		@Override
 		protected FilterResults performFiltering(CharSequence constraint) {
 			FilterResults results = new FilterResults();

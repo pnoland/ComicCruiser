@@ -2,15 +2,11 @@ package com.cs446.ComicCruiser.Activity;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
-
 import com.cs446.ComicCruiser.R;
 import com.cs446.ComicCruiser.ComicRepository.RepositoryFacade;
 import com.cs446.ComicCruiser.View.FoundItemsAdapter;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
