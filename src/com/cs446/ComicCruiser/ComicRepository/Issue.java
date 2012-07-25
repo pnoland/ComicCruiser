@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
 
-import com.cs446.ComicCruiser.Decompression.DecompressionFacade;
 import com.cs446.ComicCruiser.Decompression.DecompressionStrategyContext;
 import com.cs446.ComicCruiser.FrameRequest.FrameData;
 import com.cs446.ComicCruiser.FrameRequest.FrameRequesterFacade;

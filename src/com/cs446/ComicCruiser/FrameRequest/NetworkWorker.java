@@ -7,7 +7,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
@@ -29,7 +28,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 //Asynchronous threads that request frame data from the server
 public class NetworkWorker extends AsyncTask<String, Integer, Boolean>{
-	private static String serverUrl = "http://serverHostHame:80";
+	private static String serverUrl = "http://mecdanna.servequake.com";
 	private List<FrameData> fd;
 	
 	public List<FrameData> getFD(){

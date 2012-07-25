@@ -6,8 +6,6 @@ import com.cs446.ComicCruiser.View.ComicIssueListAdapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Application;
-import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -76,7 +74,6 @@ public class ComicCruiserHomeActivity extends Activity {
     	//launch with correct issue object
     	Intent i = new Intent(this, ComicCruiserDetailsActivity.class);
     	i.putExtra(ComicCruiserLibraryActivity.ISSUE_TITLE_KEY, ((TextView)V).getText().toString());
-    	String t = i.getStringExtra(ComicCruiserLibraryActivity.ISSUE_TITLE_KEY);
     	startActivity(i);
     }
     
