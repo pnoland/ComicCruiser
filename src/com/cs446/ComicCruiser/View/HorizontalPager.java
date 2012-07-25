@@ -514,6 +514,9 @@ public final class HorizontalPager extends ViewGroup {
 
 	    @Override
 	    protected void onPostExecute(Bitmap result) {
+	    	if(result ==null){
+	    		return;
+	    	}
 	        TouchImageView imageView = new TouchImageView(getContext());
 	        imageView.setImageBitmap(result);
 	        addView(imageView);

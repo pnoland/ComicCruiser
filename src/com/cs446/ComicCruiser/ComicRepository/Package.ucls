@@ -1,0 +1,55 @@
+<class-diagram version="1.0.9" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="true" nesting-relationships="true">  
+  <package id="1" corner="BOTTOM_RIGHT" language="java" name="com.cs446.ComicCruiser.Activity" project="ComicCruiser" 
+    file="/ComicCruiser/src/com/cs446/ComicCruiser/Activity" binary="false">    
+    <position x="41" y="215" width="211" height="49"/>    
+    <display autosize="true" stereotype="true"/>  
+  </package>  
+  <package id="2" corner="BOTTOM_RIGHT" language="java" name="com.cs446.ComicCruiser.ComicRepository" 
+    project="ComicCruiser" file="/ComicCruiser/src/com/cs446/ComicCruiser/ComicRepository" binary="false">    
+    <position x="164" y="126" width="267" height="49"/>    
+    <display autosize="true" stereotype="true"/>  
+  </package>  
+  <package id="3" corner="BOTTOM_RIGHT" language="java" name="com.cs446.ComicCruiser.Decompression" 
+    project="ComicCruiser" file="/ComicCruiser/src/com/cs446/ComicCruiser/Decompression" binary="false">    
+    <position x="292" y="215" width="260" height="49"/>    
+    <display autosize="true" stereotype="true"/>  
+  </package>  
+  <package id="4" corner="BOTTOM_RIGHT" language="java" name="com.cs446.ComicCruiser.FrameRequest" 
+    project="ComicCruiser" file="/ComicCruiser/src/com/cs446/ComicCruiser/FrameRequest" binary="false">    
+    <position x="279" y="37" width="253" height="49"/>    
+    <display autosize="true" stereotype="true"/>  
+  </package>  
+  <package id="5" corner="BOTTOM_RIGHT" language="java" name="com.cs446.ComicCruiser.View" project="ComicCruiser" 
+    file="/ComicCruiser/src/com/cs446/ComicCruiser/View" binary="false">    
+    <position x="41" y="37" width="198" height="49"/>    
+    <display autosize="true" stereotype="true"/>  
+  </package>  
+  <dependency id="6">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="7">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="8">    
+    <bendpoint x="50" y="126"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="9">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="10">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
