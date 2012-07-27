@@ -53,14 +53,14 @@ public class NetworkWorker extends AsyncTask<Issue, Integer, Boolean>{
 		}
 	}
 	
-	@Override
+	/*@Override
     protected void onPostExecute(Boolean result) {
         if (result == true) {
         	//TO DO: We succeeded
         } else {
         	//TO DO: We failed
         }
-    }
+    }*/
 	
 	//Sets fd to be the FrameData contained within the given HttpResponse
 	private boolean addFrameDataToIssue(HttpResponse response, Issue issue) {

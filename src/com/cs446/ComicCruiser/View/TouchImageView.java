@@ -226,7 +226,6 @@ private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureLis
 	
 	@Override
 		protected void onDetachedFromWindow() {
-			// TODO Auto-generated method stub
 			super.onDetachedFromWindow();
 			bm.recycle();
 			System.gc();

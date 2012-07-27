@@ -11,8 +11,6 @@ import android.graphics.Rect;
 
 public class FrameIterator extends ImageIterator {
 	
-	
-
 	int index = 0;
 	int currentPageNum = -1;
 	//starts 1 lower than it should so that the increment from initialization doesn't make it off by one

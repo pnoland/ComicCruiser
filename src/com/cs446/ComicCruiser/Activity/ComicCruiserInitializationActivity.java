@@ -36,10 +36,7 @@ public class ComicCruiserInitializationActivity extends Activity {
 	        Button b1 = (Button) findViewById(R.id.initializationImportButton);
 	        b1.setOnClickListener(importClickHandler);
 	    }
-	    
-	    public void onItemClick(View V) {
-	    }
-
+	   
 	    public void showImportButton(){
 	    	Button b1 = (Button) findViewById(R.id.initializationImportButton);
 	    	b1.setVisibility(View.VISIBLE);

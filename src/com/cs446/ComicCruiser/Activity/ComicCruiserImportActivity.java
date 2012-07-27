@@ -106,13 +106,9 @@ public class ComicCruiserImportActivity extends ListActivity {
 
     	currentPath = o.getPath();
     	alert.show();
+    }  
+    public void addComicWithTitle(String title) {
+    	RepositoryFacade.addIssue(currentPath, title);
+    	finish();
     }
-	    
-	    public void addComicWithTitle(String title) {
-	    	RepositoryFacade.addIssue(currentPath, title);
-	    	finish();
-	    }
-		public void onItemClick(View V) {
-	    }
-
 }

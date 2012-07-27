@@ -91,7 +91,6 @@ public class RepositoryFacade {
     	persistRepository();
 	}
 	public static ArrayList<String> getRecentIssues() {
-		//TODO: limit number and make them most recently read issues
 		ArrayList<String> values = new ArrayList<String>();
 		for(Issue issue : recentlyRead){
 			values.add(issue.getTitle());
@@ -99,7 +98,6 @@ public class RepositoryFacade {
 		return values;
 	}
 	public static ArrayList<String> getAllIssueTitles() {
-		//TODO: limit number and make them most recently read issues
 		ArrayList<String> values = new ArrayList<String>();
 		for(Issue issue : issueList){
 			values.add(issue.getTitle());
@@ -131,7 +129,7 @@ public class RepositoryFacade {
 	
 	public static void closeIssue(ImageIterator iterator){
 		//recycle bitmaps
-		//set bootmark
+		//set bookmark
 		Issue issue = iterator.getIssue();
 		issue.setPageBookmark(iterator.getPageBookmark());
 	}
