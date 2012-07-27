@@ -13,14 +13,13 @@ public class ConcreteZIPStrategy extends DecompressionStrategy {
 		super(compressedFile);
 	}
 	
-	private FileInputStream fin;
 	private ZipInputStream zin;
 
 	@Override
 	public InputStream decompressNextImage() {
-		if(zin == null || fin == null){
+		if(zin == null){
 			try{
-				fin = new FileInputStream(compressedFile);
+				FileInputStream fin = new FileInputStream(compressedFile);
 				zin = new ZipInputStream(fin);
 				zin.getNextEntry();
 				zin.getNextEntry();

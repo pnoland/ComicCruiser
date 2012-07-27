@@ -13,14 +13,14 @@ import android.widget.TextView;
 
 public class FileArrayAdapter extends ArrayAdapter<Option>{
 
-	private Context c;
+	private Context context;
 	private int id;
 	private List<Option>items;
 	
 	public FileArrayAdapter(Context context, int textViewResourceId,
 			List<Option> objects) {
 		super(context, textViewResourceId, objects);
-		c = context;
+		this.context = context;
 		id = textViewResourceId;
 		items = objects;
 	}
@@ -32,18 +32,18 @@ public class FileArrayAdapter extends ArrayAdapter<Option>{
        public View getView(int position, View convertView, ViewGroup parent) {
                View v = convertView;
                if (v == null) {
-                   LayoutInflater vi = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                   LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                    v = vi.inflate(id, null);
                }
-               final Option o = items.get(position);
-               if (o != null) {
-                       TextView t1 = (TextView) v.findViewById(R.id.importFileName);
-                       TextView t2 = (TextView) v.findViewById(R.id.importFileData);
+               final Option option = items.get(position);
+               if (option != null) {
+                       TextView fileName = (TextView) v.findViewById(R.id.importFileName);
+                       TextView fileData = (TextView) v.findViewById(R.id.importFileData);
                        
-                       if(t1!=null)
-                       	t1.setText(o.getName());
-                       if(t2!=null)
-                       	t2.setText(o.getData());
+                       if(fileName!=null)
+                       	fileName.setText(option.getName());
+                       if(fileData!=null)
+                       	fileData.setText(option.getData());
                        
                }
                return v;

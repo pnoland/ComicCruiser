@@ -18,6 +18,9 @@ import android.view.WindowManager;
 import android.widget.Scroller;
 
 /**
+ *CS 446 note: Adapted from https://github.com/ysamlan/horizontalpager
+ * Added code to fetch and add images using an image iterator
+ * Original documentation follows below
  * A view group that allows users to switch between multiple screens (layouts) in the same way as
  * the Android home screen (Launcher application).
  * <p>

@@ -19,6 +19,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import com.cs446.ComicCruiser.Activity.FrameRequestCallback;
 import com.cs446.ComicCruiser.ComicRepository.Issue;
 import android.os.AsyncTask;
 import java.util.ArrayList;
@@ -27,15 +28,17 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 //Asynchronous threads that request frame data from the server
-public class NetworkWorker extends AsyncTask<Issue, Integer, Boolean>{
-	private static String serverUrl = "http://mecdanna.servequake.com";
+public class NetworkWorker extends AsyncTask<Issue, FrameRequestCallback, Boolean>{
+	private static final String SERVER_URL = "http://mecdanna.servequake.com";
+	
+	private FrameRequestCallback callback;
 	
 	protected Boolean doInBackground(Issue... issues){
 		try{
 			HttpClient httpclient = new DefaultHttpClient();
 			httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
 			
-			HttpPost httppost = new HttpPost(serverUrl);
+			HttpPost httppost = new HttpPost(SERVER_URL);
 			File file = new File(issues[0].getFilepath());
 			
 			MultipartEntity mpEntity = new MultipartEntity();
@@ -53,14 +56,10 @@ public class NetworkWorker extends AsyncTask<Issue, Integer, Boolean>{
 		}
 	}
 	
-	/*@Override
+	@Override
     protected void onPostExecute(Boolean result) {
-        if (result == true) {
-        	//TO DO: We succeeded
-        } else {
-        	//TO DO: We failed
-        }
-    }*/
+		callback.reportResults(result);
+    }
 	
 	//Sets fd to be the FrameData contained within the given HttpResponse
 	private boolean addFrameDataToIssue(HttpResponse response, Issue issue) {
@@ -128,5 +127,10 @@ public class NetworkWorker extends AsyncTask<Issue, Integer, Boolean>{
 		NodeList textXList = xElement.getChildNodes();
 		String x = ((Node)textXList.item(0)).getNodeValue();
 		return Integer.parseInt(x);
+	}
+
+	public void execute(Issue issue, FrameRequestCallback callback) {
+		this.callback = callback;
+		super.execute(issue);
 	}
 }

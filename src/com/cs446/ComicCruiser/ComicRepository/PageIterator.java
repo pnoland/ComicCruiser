@@ -17,7 +17,7 @@ public class PageIterator extends ImageIterator {
 	}
 
 	@Override
-	public void seekToPage(int index) {
+	public void seekToIndex(int index) {
 		for(int i = 0; i < index; i++){
 			strategy.decompressNextImage();
 			pageBookmark++;

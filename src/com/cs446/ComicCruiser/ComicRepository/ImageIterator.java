@@ -8,10 +8,7 @@ import android.graphics.Bitmap;
 public abstract class ImageIterator {
 	
 	protected Issue issue;
-	public Issue getIssue() {
-		return issue;
-	}
-
+	
 	protected int pageBookmark = 0;
 	protected int frameBookmark = 0;
 
@@ -24,10 +21,18 @@ public abstract class ImageIterator {
 	
 	public abstract Bitmap getNextPage();
 	
-	public abstract void seekToPage(int index);
+	public abstract void seekToIndex(int index);
+	
+	public Issue getIssue() {
+		return issue;
+	}
 
 	public int getPageBookmark() {
 		return pageBookmark;
+	}
+
+	public int getFrameBookmark() {
+		return frameBookmark;
 	}
 
 }

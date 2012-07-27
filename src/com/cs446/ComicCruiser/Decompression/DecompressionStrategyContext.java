@@ -4,14 +4,15 @@ import java.io.File;
 
 public class DecompressionStrategyContext {
 	
-	public static DecompressionStrategy getDecompressionStrategy(File f){
-		String name = f.getName();
-		int mid= name.lastIndexOf(".");
-		String ext=name.substring(mid+1,name.length()); 
+	public static DecompressionStrategy getDecompressionStrategy(File file){
+		String name = file.getName();
+		int separatorIndex = name.lastIndexOf(".");
+		String ext=name.substring(separatorIndex+1,name.length()); 
+		
 		if(ext.equals("cbz"))
-			return new ConcreteZIPStrategy(f);
+			return new ConcreteZIPStrategy(file);
 		else
-			return new ConcreteRARStrategy(f);
+			return new ConcreteRARStrategy(file);
 	}
 
 }

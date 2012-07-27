@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
 
+import com.cs446.ComicCruiser.Activity.FrameRequestCallback;
 import com.cs446.ComicCruiser.Decompression.DecompressionStrategyContext;
 import com.cs446.ComicCruiser.FrameRequest.FrameData;
 import com.cs446.ComicCruiser.FrameRequest.FrameRequesterFacade;
@@ -36,8 +37,8 @@ public class Issue {
 		frameData = new ArrayList<FrameData>();
 	}
 	
-	public void fetchFrameData(){
-		FrameRequesterFacade.requestFrameBoundaries(this);
+	public void fetchFrameData(FrameRequestCallback callback){
+		FrameRequesterFacade.requestFrameBoundaries(this, callback);
 	}
 	
 	public void setFrameData(List<FrameData> frameData){

@@ -15,12 +15,9 @@ import android.content.SharedPreferences.Editor;
 public class RepositoryFacade {
 	
 	public static final String PREFERENCE_ISSUE_LIST = "AppIssueList";
-
+	private static final String PREFERENCE_RECENTLY_READ_LIST = "AppRecentlyReadList";
 
 	private static final int RECENTLY_READ_ISSUE_LIMIT = 3;
-
-
-	private static final String PREFERENCE_RECENTLY_READ_LIST = "AppRecentlyReadList";
 
 	
 	private static ArrayList<Issue> issueList;
@@ -41,17 +38,19 @@ public class RepositoryFacade {
 		return issueList;
 	}
 	public static void initializeRepository(){
-		
-		//read up issue objects
 		Gson gson = new Gson();
 		SharedPreferences settings = ComicCruiserHomeActivity.getInstance().getSharedPreferences("ComicCruiserPreferences", Activity.MODE_PRIVATE); 
+		
 		Type issueListType = new TypeToken<ArrayList<Issue>>(){}.getType();
 		issueList = gson.fromJson(settings.getString(PREFERENCE_ISSUE_LIST, null), issueListType);
+		
 		if(issueList == null){
 			issueList = new ArrayList<Issue>();
 		}
+		
 		Type recentlyReadType = new TypeToken<ArrayList<Issue>>(){}.getType();
 		recentlyRead = gson.fromJson(settings.getString(PREFERENCE_RECENTLY_READ_LIST, null), recentlyReadType);
+		
 		if(recentlyRead== null){
 			recentlyRead = new ArrayList<Issue>(RepositoryFacade.RECENTLY_READ_ISSUE_LIMIT);
 		}
@@ -71,18 +70,16 @@ public class RepositoryFacade {
 		editor.commit();
 	}
 	public static void addIssue(String filepath, String title){
-		
 		//create issue object
 		Issue issue = new Issue(filepath, title);
 		if(issueList.contains(issue))//disallow duplicates
 			return;
 		//add to issue list
 		issueList.add(issue);
-		//issue.initializeImages();
 		//persist
 		persistRepository();
 	}
-	public static void batchAdd(List<File> comicFiles) {
+	public static void batchAdd(List<File> comicFiles) {//batch add for mass import of files
     	for(File f : comicFiles) {
     		Issue issue = new Issue(f.getPath(), f.getName());
     		issueList.add(issue);
@@ -122,16 +119,19 @@ public class RepositoryFacade {
 			iterator = new PageIterator(issue);
 		}
 		
-		//iterator.seekToPage(issue.getPageBookmark());
+		int index = mode ? issue.getFrameBookmark() : issue.getPageBookmark();
+		iterator.seekToIndex(index);
 		
 		return iterator;
 	}
 	
 	public static void closeIssue(ImageIterator iterator){
-		//recycle bitmaps
 		//set bookmark
 		Issue issue = iterator.getIssue();
-		issue.setPageBookmark(iterator.getPageBookmark());
+		if(iterator instanceof PageIterator)
+			issue.setPageBookmark(iterator.getPageBookmark());
+		else
+			issue.setFrameBookmark(iterator.getFrameBookmark());
 	}
 	
 	public static void deleteIssue(Issue issue){

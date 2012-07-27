@@ -9,35 +9,42 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.ImageView;
 
+/**
+ * CS 446 Note: adapted from https://github.com/MikeOrtiz/TouchImageView/blob/master/src/com/example/touch/TouchImageView.java
+ * Cleaned up slightly and added onDetached... handler to recycle bitmaps
+ *
+ */
+
 public class TouchImageView extends ImageView {
 
-Matrix matrix = new Matrix();
+private Matrix matrix = new Matrix();
 
 private Bitmap bm;
 
 // We can be in one of these 3 states
-static final int NONE = 0;
-static final int DRAG = 1;
-static final int ZOOM = 2;
-int mode = NONE;
+private static final int NONE = 0;
+private static final int DRAG = 1;
+private static final int ZOOM = 2;
+private int mode = NONE;
 
 // Remember some things for zooming
-PointF last = new PointF();
-PointF start = new PointF();
-float minScale = 1f;
-float maxScale = 3f;
-float[] m;
+private PointF last = new PointF();
+private PointF start = new PointF();
+private float minScale = 1f;
+private float maxScale = 3f;
+private float[] m;
 
-float redundantXSpace, redundantYSpace;
+private float redundantXSpace, redundantYSpace;
 
-float width, height;
-static final int CLICK = 3;
-float saveScale = 1f;
-float right, bottom, origWidth, origHeight, bmWidth, bmHeight;
+private float width, height;
+private static final int CLICK = 3;
+private float saveScale = 1f;
+private float right, bottom, origWidth, origHeight, bmWidth, bmHeight;
 
-ScaleGestureDetector mScaleDetector;
+private ScaleGestureDetector mScaleDetector;
 
-Context context;
+@SuppressWarnings("unused")
+private Context context;
 
 public TouchImageView(Context context){
 	super(context);
@@ -227,6 +234,7 @@ private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureLis
 	@Override
 		protected void onDetachedFromWindow() {
 			super.onDetachedFromWindow();
+			//recycle our bitmap immediately so we don't run out of memory!
 			bm.recycle();
 			System.gc();
 		}
