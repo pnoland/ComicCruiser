@@ -33,16 +33,16 @@ public class ComicCruiserInitializationActivity extends Activity {
 	        adapter = new FoundItemsAdapter(this, new ArrayList<File>(), this);
 	        listView.setAdapter(adapter);
 	        
-	        Button b1 = (Button) findViewById(R.id.initializationImportButton);
-	        b1.setOnClickListener(importClickHandler);
+	        Button importButton = (Button) findViewById(R.id.initializationImportButton);
+	        importButton.setOnClickListener(importClickHandler);
 	    }
 	    
 	    public void onItemClick(View V) {
 	    }
 
 	    public void showImportButton(){
-	    	Button b1 = (Button) findViewById(R.id.initializationImportButton);
-	    	b1.setVisibility(View.VISIBLE);
+	    	Button importButton = (Button) findViewById(R.id.initializationImportButton);
+	    	importButton.setVisibility(View.VISIBLE);
 	    	ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar1);
 	    	pb.setVisibility(View.GONE);
 	    	TextView tv = (TextView) findViewById(R.id.findingComicsLabel);

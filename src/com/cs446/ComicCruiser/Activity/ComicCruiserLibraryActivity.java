@@ -20,7 +20,7 @@ public class ComicCruiserLibraryActivity extends Activity {
 
 		public static String ISSUE_TITLE_KEY = "com.cs446.ComicCruiser.issue_title_key";
 		
-		private ComicIssueListAdapter adapter;
+		private ComicIssueListAdapter issueListAdapter;
 	    @Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
@@ -29,23 +29,19 @@ public class ComicCruiserLibraryActivity extends Activity {
 	        ListView listView = (ListView) findViewById(R.id.libraryItemsList);
 	        
 	        ArrayList<String> values = RepositoryFacade.getAllIssueTitles();
-	        
-	        adapter = new ComicIssueListAdapter(this, values);
-	        listView.setAdapter(adapter);
+	        	
+	        issueListAdapter = new ComicIssueListAdapter(this, values);
+	        listView.setAdapter(issueListAdapter);
 	        TextView searchBarTextView = (TextView) findViewById(R.id.librarySearchView);
 			searchBarTextView.addTextChangedListener(new TextWatcher() {
 	        	public void onTextChanged(CharSequence s, int start, int before, int count) {
-	        	    adapter.getFilter().filter(s);
+	        	    issueListAdapter.getFilter().filter(s);
 	        	}
-				public void afterTextChanged(Editable s) {
-					
-				}
-				public void beforeTextChanged(CharSequence s, int start,
-						int count, int after) {
-				}});
+				public void afterTextChanged(Editable s) {}
+				public void beforeTextChanged(CharSequence s, int start,int count, int after) {}});
 	    }
 	    
-	    public void onItemClick(View V) {
+	    public void onItemClick(View V) {//handler for click of list item in issue list
 	    	//get title
 	    	//launch with correct issue object
         	Intent i = new Intent(this, ComicCruiserDetailsActivity.class);
@@ -58,8 +54,8 @@ public class ComicCruiserLibraryActivity extends Activity {
 	    	super.onResume();
 	    	ListView listView = (ListView) findViewById(R.id.libraryItemsList);
 	    	ArrayList<String> values = RepositoryFacade.getAllIssueTitles();
-	        adapter = new ComicIssueListAdapter(this, values);
-	        listView.setAdapter(adapter);
+	        issueListAdapter = new ComicIssueListAdapter(this, values);
+	        listView.setAdapter(issueListAdapter);
 	    }
 
 }

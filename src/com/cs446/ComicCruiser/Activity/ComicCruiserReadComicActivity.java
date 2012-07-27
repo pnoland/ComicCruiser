@@ -21,6 +21,9 @@ public class ComicCruiserReadComicActivity extends Activity {
         String title = getIntent().getStringExtra(ComicCruiserLibraryActivity.ISSUE_TITLE_KEY);
         boolean mode = getIntent().getBooleanExtra(ComicCruiserLibraryActivity.ISSUE_MODE_KEY, false);
         Issue issue = RepositoryFacade.getIssueByTitle(title);
+        if(mode && !issue.hasFrameData()){
+        	issue.fetchFrameData();
+        }
         ImageIterator iterator = RepositoryFacade.openIssueForReading(issue, mode);
         pager.setImageIterator(iterator);
         pager.initialize();

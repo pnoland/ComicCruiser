@@ -18,14 +18,14 @@ public class ComicCruiserHomeActivity extends Activity {
 	private static Activity instance;
     View.OnClickListener libraryClickHandler = new View.OnClickListener() {
         public void onClick(View v) {
-        	Intent i = new Intent(ComicCruiserHomeActivity.this, ComicCruiserLibraryActivity.class);
-        	startActivity(i);
+        	Intent intent = new Intent(ComicCruiserHomeActivity.this, ComicCruiserLibraryActivity.class);
+        	startActivity(intent);
         }
       };
       View.OnClickListener importClickHandler = new View.OnClickListener() {
           public void onClick(View v) {
-          	Intent i = new Intent(ComicCruiserHomeActivity.this, ComicCruiserImportActivity.class);
-          	startActivity(i);
+          	Intent intent = new Intent(ComicCruiserHomeActivity.this, ComicCruiserImportActivity.class);
+          	startActivity(intent);
           }
         };
     @Override
@@ -33,20 +33,17 @@ public class ComicCruiserHomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         instance = this;
         RepositoryFacade.initializeRepository();
-        
         setContentView(R.layout.home_view);
         
         ListView listView = (ListView) findViewById(R.id.homeRecentItemsList);
+        ComicIssueListAdapter recentItemsAdapter = new ComicIssueListAdapter(this, RepositoryFacade.getRecentIssues());
+        listView.setAdapter(recentItemsAdapter);
         
+        Button importButton = (Button) findViewById(R.id.homeImportButton);
+        Button libraryButton = (Button) findViewById(R.id.homeLibraryButton);
         
-        ComicIssueListAdapter adapter = new ComicIssueListAdapter(this, RepositoryFacade.getRecentIssues());
-        listView.setAdapter(adapter);
-        
-        Button b1 = (Button) findViewById(R.id.homeImportButton);
-        Button b2 = (Button) findViewById(R.id.homeLibraryButton);
-        
-        b1.setOnClickListener(importClickHandler);
-        b2.setOnClickListener(libraryClickHandler);
+        importButton.setOnClickListener(importClickHandler);
+        libraryButton.setOnClickListener(libraryClickHandler);
         
         //Only show Import dialog is the library is empty
         if(RepositoryFacade.getIssueList().isEmpty()) {
@@ -56,10 +53,10 @@ public class ComicCruiserHomeActivity extends Activity {
         }
         
         //Only show Recent Items label if there are recent items.
-        hideOrShowRecentItemsLabel();
+        toggleRecentItemsLabel();
     }
     
-    private void hideOrShowRecentItemsLabel(){
+    private void toggleRecentItemsLabel(){
     	if(RepositoryFacade.getRecentIssues().isEmpty()){
         	TextView tv = (TextView) findViewById(R.id.homeRecentItemsLabel);
 	    	tv.setVisibility(View.GONE);
@@ -69,20 +66,20 @@ public class ComicCruiserHomeActivity extends Activity {
         }
     }
     
-    public void onItemClick(View V) {
+    public void onItemClick(View V) {//handler for click of list item in recent issues
     	//get title
     	//launch with correct issue object
-    	Intent i = new Intent(this, ComicCruiserDetailsActivity.class);
-    	i.putExtra(ComicCruiserLibraryActivity.ISSUE_TITLE_KEY, ((TextView)V).getText().toString());
-    	startActivity(i);
+    	Intent intent = new Intent(this, ComicCruiserDetailsActivity.class);
+    	intent.putExtra(ComicCruiserLibraryActivity.ISSUE_TITLE_KEY, ((TextView)V).getText().toString());
+    	startActivity(intent);
     }
     
     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int which) {
             switch (which){
             case DialogInterface.BUTTON_POSITIVE:
-            	Intent i = new Intent(ComicCruiserHomeActivity.this, ComicCruiserInitializationActivity.class);
-            	startActivity(i);
+            	Intent intent = new Intent(ComicCruiserHomeActivity.this, ComicCruiserInitializationActivity.class);
+            	startActivity(intent);
                 break;
 
             case DialogInterface.BUTTON_NEGATIVE:
@@ -108,7 +105,7 @@ public class ComicCruiserHomeActivity extends Activity {
         ComicIssueListAdapter adapter = new ComicIssueListAdapter(this, RepositoryFacade.getRecentIssues());
         listView.setAdapter(adapter);
         //Only show Recent Items label if there are recent items.
-        hideOrShowRecentItemsLabel();
+        toggleRecentItemsLabel();
 	}
    
 }

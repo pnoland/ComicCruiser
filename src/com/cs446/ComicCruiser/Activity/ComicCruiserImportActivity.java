@@ -30,36 +30,37 @@ public class ComicCruiserImportActivity extends ListActivity {
         currentDir = new File(Environment.getExternalStorageDirectory().getPath());
         fill(currentDir);
     }
-    private void fill(File f)
-    {
-    	File[]dirs = f.listFiles();
-		 this.setTitle("Current Dir: "+f.getName());
-		 List<Option>dir = new ArrayList<Option>();
-		 List<Option>fls = new ArrayList<Option>();
+    private void fill(File f){
+    	File[] allFiles = f.listFiles();
+    	this.setTitle("Current Directory: "+f.getName());
+    	List<Option>directories = new ArrayList<Option>();
+    	List<Option>files = new ArrayList<Option>();
 		 try{
-			 for(File ff: dirs)
+			 for(File file: allFiles)
 			 {
-				if(ff.isDirectory())
-					dir.add(new Option(ff.getName(),"Folder",ff.getAbsolutePath()));
+				if(file.isDirectory())
+					directories.add(new Option(file.getName(),"Folder",file.getAbsolutePath()));
 				else
 				{
-					String name = ff.getName();
+					String name = file.getName();
 					int mid= name.lastIndexOf(".");
 					String ext=name.substring(mid+1,name.length()); 
 					if(ext.equals("cbz")|| ext.equals("cbr"))
-						fls.add(new Option(ff.getName(),"File Size: "+ff.length(),ff.getAbsolutePath()));
+						files.add(new Option(file.getName(),"Size: "+file.length(), file.getAbsolutePath()));
 				}
 			 }
 		 }catch(Exception e)
 		 {
 			 
 		 }
-		 Collections.sort(dir);
-		 Collections.sort(fls);
-		 dir.addAll(fls);
-		 if(!f.getName().equalsIgnoreCase("sdcard"))
-			 dir.add(0,new Option("..","Parent Directory",f.getParent()));
-		 adapter = new FileArrayAdapter(ComicCruiserImportActivity.this,R.layout.file_view,dir);
+		 Collections.sort(directories);
+		 Collections.sort(files);
+		 directories.addAll(files);
+		 if(!f.getName().equalsIgnoreCase("sdcard")){
+			 directories.add(0,new Option("..","Parent Directory",f.getParent()));
+		 }
+		 
+		 adapter = new FileArrayAdapter(ComicCruiserImportActivity.this,R.layout.file_view,directories);
 		 this.setListAdapter(adapter);
     }
     protected void onListItemClick(ListView l, View v, int position, long id) {
@@ -90,7 +91,6 @@ public class ComicCruiserImportActivity extends ListActivity {
     	public void onClick(DialogInterface dialog, int whichButton) {
     	  Editable value = input.getText();
     	  ComicCruiserImportActivity.this.addComicWithTitle(value.toString());
-    	  // Do something with value!
     	  }
     	});
 
