@@ -40,6 +40,10 @@ public class Issue {
 		FrameRequesterFacade.requestFrameBoundaries(this);
 	}
 	
+	public void setFrameData(List<FrameData> frameData){
+		this.frameData = frameData;
+	}
+	
 	public boolean hasFrameData(){
 		return !frameData.isEmpty();
 	}

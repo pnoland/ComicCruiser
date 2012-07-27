@@ -19,48 +19,52 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import com.cs446.ComicCruiser.ComicRepository.Issue;
 import android.os.AsyncTask;
-import java.util.List;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 //Asynchronous threads that request frame data from the server
-public class NetworkWorker extends AsyncTask<String, Integer, Boolean>{
+public class NetworkWorker extends AsyncTask<Issue, Integer, Boolean>{
 	private static String serverUrl = "http://mecdanna.servequake.com";
-	private List<FrameData> fd;
 	
-	public List<FrameData> getFD(){
-		return fd;
-	}
-	
-	private Document convertResponseToXMLDoc(HttpResponse response) {
+	protected Boolean doInBackground(Issue... issues){
 		try{
-			HttpEntity r_entity = response.getEntity();
-	        String xmlString = EntityUtils.toString(r_entity);
-	        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-	        DocumentBuilder db = factory.newDocumentBuilder();
-	        InputSource inStream = new InputSource();
-	        inStream.setCharacterStream(new StringReader(xmlString));
-	        Document doc = db.parse(inStream);
-	        return doc;
-		} catch(Exception e){//TO DO: Deal with specific exceptions?
-			return null;
+			HttpClient httpclient = new DefaultHttpClient();
+			httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
+			
+			HttpPost httppost = new HttpPost(serverUrl);
+			File file = new File(issues[0].getFilepath());
+			
+			MultipartEntity mpEntity = new MultipartEntity();
+			mpEntity.addPart("file", new FileBody(file));
+			mpEntity.addPart("fileSz", new StringBody(Long.toString(file.length())));
+			
+			httppost.setEntity(mpEntity);
+			HttpResponse response = httpclient.execute(httppost);
+			
+			boolean result = addFrameDataToIssue(response, issues[0]);
+			
+			return result;
+		} catch(Exception e) {
+			return false;
 		}
 	}
 	
-	private int getIntFromFrameElement(Element frameElement, String attribute){
-		NodeList xList = frameElement.getElementsByTagName(attribute);
-		Element xElement = (Element)xList.item(0);
-		NodeList textXList = xElement.getChildNodes();
-		String x = ((Node)textXList.item(0)).getNodeValue();
-		return Integer.parseInt(x);
-	}
+	/*@Override
+    protected void onPostExecute(Boolean result) {
+        if (result == true) {
+        	//TO DO: We succeeded
+        } else {
+        	//TO DO: We failed
+        }
+    }*/
 	
 	//Sets fd to be the FrameData contained within the given HttpResponse
-	private void extractFrameData(HttpResponse response) {
-		fd = new ArrayList<FrameData>();
+	private boolean addFrameDataToIssue(HttpResponse response, Issue issue) {
+		ArrayList<FrameData> fd = new ArrayList<FrameData>();
 		
 		try{
 			//Put the response into an XML parser
@@ -95,31 +99,34 @@ public class NetworkWorker extends AsyncTask<String, Integer, Boolean>{
 		        	}
 		        }
 	        }
+	        //Set the issue's frame data
+	        issue.setFrameData(fd);
+	        return true;
 		} catch(Exception e) {
-			//TO DO: Deal with specific exceptions?
+			return false;
 		}
 	}
 	
-	protected Boolean doInBackground(String... filePaths){
+	private Document convertResponseToXMLDoc(HttpResponse response) {
 		try{
-			HttpClient httpclient = new DefaultHttpClient();
-			httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
-			
-			HttpPost httppost = new HttpPost(serverUrl);
-			File file = new File(filePaths[0]);
-			
-			MultipartEntity mpEntity = new MultipartEntity();
-			mpEntity.addPart("file", new FileBody(file));
-			mpEntity.addPart("fileSz", new StringBody(Long.toString(file.length())));
-			
-			httppost.setEntity(mpEntity);
-			HttpResponse response = httpclient.execute(httppost);
-			
-			extractFrameData(response);
-			
-			return true;
-		} catch(Exception e) {//TO DO: deal with specific exceptions?
-			return false;
+			HttpEntity r_entity = response.getEntity();
+	        String xmlString = EntityUtils.toString(r_entity);
+	        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	        DocumentBuilder db = factory.newDocumentBuilder();
+	        InputSource inStream = new InputSource();
+	        inStream.setCharacterStream(new StringReader(xmlString));
+	        Document doc = db.parse(inStream);
+	        return doc;
+		} catch(Exception e){
+			return null;
 		}
+	}
+	
+	private int getIntFromFrameElement(Element frameElement, String attribute){
+		NodeList xList = frameElement.getElementsByTagName(attribute);
+		Element xElement = (Element)xList.item(0);
+		NodeList textXList = xElement.getChildNodes();
+		String x = ((Node)textXList.item(0)).getNodeValue();
+		return Integer.parseInt(x);
 	}
 }

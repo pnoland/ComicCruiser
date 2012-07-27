@@ -16,6 +16,7 @@ public class ComicCruiserDetailsActivity extends Activity {
 	private static final int COVER_HEIGHT = 250;
 	private static final int COVER_WIDTH = 300;
 	private String title;
+
     private View.OnClickListener readPageClickHandler = new View.OnClickListener() {
         public void onClick(View v) {
         	Intent intent = new Intent(ComicCruiserDetailsActivity.this, ComicCruiserReadComicActivity.class);

@@ -51,7 +51,11 @@ public class ComicCruiserImportActivity extends ListActivity {
 			 }
 		 }catch(Exception e)
 		 {
-			 
+			 AlertDialog alertDialog;
+			 alertDialog = new AlertDialog.Builder(this).create();
+			 alertDialog.setTitle("Error");
+			 alertDialog.setMessage("Could not read directory: " + f.getName());
+			 alertDialog.show();
 		 }
 		 Collections.sort(directories);
 		 Collections.sort(files);
@@ -102,13 +106,9 @@ public class ComicCruiserImportActivity extends ListActivity {
 
     	currentPath = o.getPath();
     	alert.show();
+    }  
+    public void addComicWithTitle(String title) {
+    	RepositoryFacade.addIssue(currentPath, title);
+    	finish();
     }
-	    
-	    public void addComicWithTitle(String title) {
-	    	RepositoryFacade.addIssue(currentPath, title);
-	    	finish();
-	    }
-		public void onItemClick(View V) {
-	    }
-
 }
